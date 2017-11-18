@@ -1,6 +1,7 @@
-# Agate ( **A**PI **Ga**teway **Te**mplate)
+# agate
 
-This is a [boilr](https://github.com/tmrts/boilr) template for scaffolding Go api server project.
+
+ agate ( stands for **A** PI **Ga** teway **Te** mplate) is a [boilr](https://github.com/tmrts/boilr) template for scaffolding Go api server project.
 
 ## Stacks
 
