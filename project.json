@@ -1,0 +1,12 @@
+{
+    "PkgName": "api-server",
+    "Description": "api server",
+    "Author": "boilr user",
+    "Email": "agate@example.com",
+    "Version": "0.1.0",
+    "License": "MIT",
+    "UseRedis": true,
+    "UseMemcached": true,
+    "UseMySQL": true,
+    "UseMongoDB": false
+}

@@ -1,0 +1,84 @@
+version: '3'
+services:
+  {{PkgName}}-nginx:
+    image: nginx:1.13.5
+    container_name: {{PkgName}}-nginx
+    ports:
+      - "8080:80"
+    links:
+      - {{PkgName}}
+    volumes:
+      - ./containers/nginx/conf.d:/etc/nginx/conf.d
+  {{PkgName}}:
+    container_name: {{PkgName}}
+    build:
+      context: .
+      dockerfile: ./containers/{{PkgName}}/Dockerfile
+    links:
+    {{- if UseMongoDB }}
+      - {{PkgName}}-mongod:mongod
+    {{- end }}
+    {{- if UseRedis }}
+      - {{PkgName}}-redis:redis
+    {{- end }}
+    {{- if UseMemcached }}
+      - {{PkgName}}-memcached:memcached
+    {{- end }}
+    {{- if UseMySQL }}
+      - {{PkgName}}-mysql:mysql
+    {{- end }}
+    environment:
+      - PORT=8080
+    {{- if UseMongoDB }}
+      - MONGO_URL=mongod
+    {{- end }}
+    {{- if UseMemcached }}
+      - MEMCACHED_HOST=memcached
+      - MEMCACHED_PORT=11211
+    {{- end }}
+    {{- if UseRedis }}
+      - REDIS_ADDR=redis
+      - REDIS_PORT=6379
+    {{- end }}
+    {{- if UseMySQL }}
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+    {{- end }}
+{{- if UseMongoDB }}
+  {{PkgName}}-mongod:
+    container_name: {{PkgName}}-mongod
+    image: mongo:3.4.9
+    volumes:
+      - ./mountd/mongo/data/db:/data/db
+    ports:
+      - 37017:27017
+{{- end }}
+{{- if UseMySQL }}
+  {{PkgName}}-mysql:
+    container_name: {{PkgName}}-mysql
+    image: mysql:latest
+    ports:
+      - 4306:3306
+    volumes:
+      - ./mountd/mysql/var/lib/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=password
+{{- end }}
+{{- if UseMemcached }}
+  {{PkgName}}-memcached:
+    container_name: memcached
+    image: memcached:1.5.2
+    ports:
+      - 21211:11211
+{{- end }}
+{{- if UseRedis }}
+  {{PkgName}}-redis:
+    container_name: {{PkgName}}-redis
+    image: redis:4.0.2
+    ports:
+      - 7379:6379
+    volumes:
+      - ./mountd/redis/data:/data
+{{- end }}
