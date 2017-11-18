@@ -71,5 +71,5 @@ fabric.properties
 /**/database/er
 /**/docker-compose.yaml
 /**/docker-compose.dev.yaml
-/**/README.Md
+/**/README.md
 /**/.editorconfig
