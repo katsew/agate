@@ -11,6 +11,7 @@ This is a [boilr](https://github.com/tmrts/boilr) template for scaffolding Go ap
 - mysql
 - mongo
 - redis
+- memcached
 
 # Installation
 
