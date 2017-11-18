@@ -1,4 +1,4 @@
-# Agate ( **A**PI **Ga**teway **Te**mplate)
+# Agate ( *A*PI *Ga*teway *Te*mplate)
 
 This is a [boilr](https://github.com/tmrts/boilr) template for scaffolding Go api server project.
 
